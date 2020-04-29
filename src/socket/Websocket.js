@@ -1,0 +1,39 @@
+
+
+export function Websocket(that, msgType) {
+
+    var socket = new WebSocket('ws://3.14.4.184:8081/api/ws');
+
+    // on websocket error
+    socket.addEventListener('error', function (event) {
+        console.log("error")
+        console.log(event);
+    });
+
+    // Connection opened
+
+    socket.addEventListener('open', function (event) {
+        console.log("connected")
+        var msg = { "type": msgType }
+
+        if (msgType == "hello") {
+            msg["data"] = "";
+        }
+        else if (msgType == "addUser") {
+            msg["data"] = that.state.input;
+        }
+
+        socket.send(JSON.stringify(msg));
+
+    });
+
+    // Listen for messages
+    socket.addEventListener('message', function (event) {
+        console.log("message")
+        console.log("respoonse back " + JSON.parse(event.data))
+        that.setState({
+            listView: JSON.parse(event.data)["Data"] != null ? JSON.parse(event.data)["Data"] : []
+        })
+        console.log(that.state.listView)
+    });
+}
