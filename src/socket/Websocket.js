@@ -2,7 +2,7 @@
 
 export function Websocket(that, msgType) {
 
-    var socket = new WebSocket('ws://3.14.4.184:8081/api/ws');
+    var socket = new WebSocket('ws://localhost:8081/api/ws');
 
     // on websocket error
     socket.addEventListener('error', function (event) {
@@ -11,15 +11,14 @@ export function Websocket(that, msgType) {
     });
 
     // Connection opened
-
     socket.addEventListener('open', function (event) {
         console.log("connected")
-        var msg = { "type": msgType }
+        var msg = { "type": msgType, "RoomID": 3 }
 
         if (msgType == "hello") {
             msg["data"] = "";
         }
-        else if (msgType == "addUser") {
+        else if (msgType == "addPlayer") {
             msg["data"] = that.state.input;
         }
 
@@ -32,7 +31,7 @@ export function Websocket(that, msgType) {
         console.log("message")
         console.log("respoonse back " + JSON.parse(event.data))
         that.setState({
-            listView: JSON.parse(event.data)["Data"] != null ? JSON.parse(event.data)["Data"] : []
+            listView: JSON.parse(event.data) != null ? JSON.parse(event.data) : []
         })
         console.log(that.state.listView)
     });

@@ -19,9 +19,17 @@ class App extends Component {
     Websocket(this, "hello")
   }
 
-  handleClick(that, input) {
+  handleAddUser(that, input) {
     console.log("ok" + that.state.input)
-    Websocket(that, "addUser")
+    Websocket(that, "addPlayer")
+  }
+
+  handleEnterRoom(that, input) {
+
+  }
+
+  handleCreateRoom(that, input) {
+
   }
 
   updateInput(that, evt) {
@@ -39,23 +47,25 @@ class App extends Component {
         {this.state.listView ? (
           <div className="App" >
             <InputGroup className="mb-3" onChange={(e) => this.updateInput(this, e)}>
-              <FormControl
-                placeholder="add user"
-                aria-label="add user"
-                aria-describedby="basic-addon2"
-              />
+
               <InputGroup.Append>
-                <Button variant="outline-secondary" onClick={(e) => this.handleClick(this, e)}>Button</Button>
+                <Button variant="outline-secondary" onClick={(e) => this.handleCreateRoom(this, e)}>Create Room</Button>
               </InputGroup.Append>
             </InputGroup>
 
-            <ListGroup>
+            <InputGroup className="mb-3" onChange={(e) => this.updateInput(this, e)}>
+              <FormControl
+                placeholder="enter room"
+                aria-label="enter room"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Append>
+                <Button variant="outline-secondary" onClick={(e) => this.handleEnterRoom(this, e)}>Button</Button>
+              </InputGroup.Append>
+            </InputGroup>
 
-              {this.state.listView.map((object, i) => <ListGroup.Item>
-                {object}
 
-              </ListGroup.Item>)}
-            </ListGroup>
+
           </div >
         ) : <div />}
       </div>
