@@ -7,37 +7,32 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Websocket } from './socket/Websocket'
 
+import { withRouter } from "react-router-dom";
+
 
 class App extends Component {
 
   state = {
     listView: [],
-    input: ""
+    input: "",
+    roomNumber: 0
   }
 
   componentDidMount() {
-    Websocket(this, "hello")
-  }
 
-  handleAddUser(that, input) {
-    console.log("ok" + that.state.input)
-    Websocket(that, "addPlayer")
   }
 
   handleEnterRoom(that, input) {
-
-  }
-
-  handleCreateRoom(that, input) {
-
+    console.log()
+    this.props.history.push(`/room/${this.state.roomNumber}`)
   }
 
   updateInput(that, evt) {
     console.log("event " + evt.target.value)
     that.setState({
-      input: evt.target.value
+      roomNumber: evt.target.value
     })
-    console.log(this.state.input)
+    console.log(this.state.roomNumber)
   }
 
   render() {
@@ -46,12 +41,12 @@ class App extends Component {
       <div>
         {this.state.listView ? (
           <div className="App" >
-            <InputGroup className="mb-3" onChange={(e) => this.updateInput(this, e)}>
+            {/* <InputGroup className="mb-3" onChange={(e) => this.updateInput(this, e)}>
 
               <InputGroup.Append>
                 <Button variant="outline-secondary" onClick={(e) => this.handleCreateRoom(this, e)}>Create Room</Button>
               </InputGroup.Append>
-            </InputGroup>
+            </InputGroup> */}
 
             <InputGroup className="mb-3" onChange={(e) => this.updateInput(this, e)}>
               <FormControl
@@ -64,8 +59,6 @@ class App extends Component {
               </InputGroup.Append>
             </InputGroup>
 
-
-
           </div >
         ) : <div />}
       </div>
@@ -73,4 +66,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

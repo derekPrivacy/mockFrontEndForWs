@@ -5,6 +5,8 @@ import { withRouter } from "react-router-dom";
 import { InputGroup, FormControl, Button, ListGroup } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { Websocket } from '../socket/Websocket'
+
 
 
 const studentList = ["student", "student"];
@@ -13,11 +15,25 @@ class Room extends Component {
 
     state = {
         listView: [],
-        input: ""
+        input: "",
+        roomId: 0,
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.state.roomId !== this.props.match.params.id) {
+            this.setState({
+                listView: [],
+                roomId: this.props.match.params.id
+            });
+        }
     }
 
     componentDidMount() {
-
+        console.log("get para number " + this.props.match.params.id)
+        Websocket(this, "hello", this.props.match.params.id)
+        this.setState({
+            roomId: this.props.match.params.id
+        })
     }
 
     updateInput(that, evt) {
@@ -26,6 +42,11 @@ class Room extends Component {
             input: evt.target.value
         })
         console.log(this.state.input)
+    }
+
+    handleAddUser(that, input) {
+        console.log("ok" + that.state.input)
+        Websocket(that, "addPlayer", this.props.match.params.id)
     }
 
     render() {

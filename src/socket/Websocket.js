@@ -1,6 +1,8 @@
 
 
-export function Websocket(that, msgType) {
+export function Websocket(that, msgType, roomNumber) {
+
+    console.log("ws passed room number " + roomNumber)
 
     var socket = new WebSocket('ws://localhost:8081/api/ws');
 
@@ -13,7 +15,7 @@ export function Websocket(that, msgType) {
     // Connection opened
     socket.addEventListener('open', function (event) {
         console.log("connected")
-        var msg = { "type": msgType, "RoomID": 3 }
+        var msg = { "type": msgType, "RoomID": parseInt(roomNumber) }
 
         if (msgType == "hello") {
             msg["data"] = "";

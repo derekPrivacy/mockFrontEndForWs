@@ -16,7 +16,7 @@ const routing = (
         paddingRight: "50px"
       }}
     >
-      <Route path="/room" component={Room} />
+      <Route path="/room/:id" component={Room} />
     </div>
   </Router>
 );
