@@ -1,5 +1,3 @@
-
-
 export function Websocket(that, msgType, roomNumber) {
 
     console.log("ws passed room number " + roomNumber)
@@ -22,7 +20,16 @@ export function Websocket(that, msgType, roomNumber) {
         }
         else if (msgType == "addPlayer") {
             msg["data"] = that.state.input;
+        } else if (msgType == "updateAvatar") {
+            msg["avatarId"] = that.state.avatarId
+            msg["positionX"] = that.state.positionX
+            msg["positionY"] = that.state.positionY
+            msg["bodyLength"] = that.state.bodyLength
+            msg["direction"] = that.state.direction
+
         }
+
+        console.log("in this case " + JSON.stringify(msg))
 
         socket.send(JSON.stringify(msg));
 
@@ -31,10 +38,10 @@ export function Websocket(that, msgType, roomNumber) {
     // Listen for messages
     socket.addEventListener('message', function (event) {
         console.log("message")
-        console.log("respoonse back " + JSON.parse(event.data))
-        that.setState({
-            listView: JSON.parse(event.data) != null ? JSON.parse(event.data) : []
-        })
-        console.log(that.state.listView)
+        console.log("respoonse back " + JSON.parse(JSON.stringify(event.data)))
+        // that.setState({
+        //     listView: JSON.parse(event.data) != null ? JSON.parse(event.data) : []
+        // })
+        // console.log(that.state.listView)
     });
 }

@@ -35,6 +35,22 @@ class App extends Component {
     console.log(this.state.roomNumber)
   }
 
+  testCors() {
+    const Http = new XMLHttpRequest();
+    const url = 'http://3.14.4.184:8081/api/validateUser';
+    Http.open("POST", url);
+    Http.send(JSON.stringify({
+      user: "dsasd",
+      password: "123"
+    }));
+
+    Http.onreadystatechange = (e) => {
+      console.log(Http.responseText)
+    }
+  }
+
+
+
   render() {
 
     return (
@@ -58,6 +74,9 @@ class App extends Component {
                 <Button variant="outline-secondary" onClick={(e) => this.handleEnterRoom(this, e)}>Button</Button>
               </InputGroup.Append>
             </InputGroup>
+
+            <Button variant="outline-secondary" onClick={(e) => this.testCors()}></Button>
+
 
           </div >
         ) : <div />}

@@ -17,6 +17,12 @@ class Room extends Component {
         listView: [],
         input: "",
         roomId: 0,
+        //
+        avatarId: "",
+        positionX: "",
+        positionY: "",
+        bodyLength: "",
+        direction: "",
     }
 
     componentDidUpdate(prevProps) {
@@ -49,10 +55,33 @@ class Room extends Component {
         Websocket(that, "addPlayer", this.props.match.params.id)
     }
 
+    updateAvatar1(that) {
+        that.setState({
+            avatarId: 1,
+            positionX: 123,
+            positionY: 321,
+            bodyLength: 6,
+            direction: "left",
+        })
+        Websocket(that, "updateAvatar", this.props.match.params.id)
+    }
+    updateAvatar2(that) {
+        that.setState({
+            avatarId: 2,
+            positionX: 123,
+            positionY: 321,
+            bodyLength: 6,
+            direction: "right",
+        })
+        Websocket(that, "updateAvatar", this.props.match.params.id)
+    }
+
     render() {
         return (
             <>
-                <div>in the room number 1</div>
+                <div>in the room number {this.props.match.params.id}</div>
+                <Button variant="outline-secondary" onClick={(e) => this.updateAvatar1(this)}>updateAvatar 1</Button>
+                <Button variant="outline-secondary" onClick={(e) => this.updateAvatar2(this)}>updateAvatar 2</Button>
                 <InputGroup className="mb-3" onChange={(e) => this.updateInput(this, e)}>
                     <FormControl
                         placeholder="add player"
