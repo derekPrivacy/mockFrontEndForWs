@@ -23,6 +23,9 @@ class Room extends Component {
         positionY: "",
         bodyLength: "",
         direction: "",
+        //
+        foodPositionX: "",
+        foodPositionY: ""
     }
 
     componentDidUpdate(prevProps) {
@@ -76,10 +79,19 @@ class Room extends Component {
         Websocket(that, "updateAvatar", this.props.match.params.id)
     }
 
+    spawnFood(that) {
+        that.setState({
+            foodPositionX: 999,
+            foodPositionY: 666
+        })
+        Websocket(that, "spawnFood", this.props.match.params.id)
+    }
+
     render() {
         return (
             <>
                 <div>in the room number {this.props.match.params.id}</div>
+                <Button variant="outline-secondary" onClick={(e) => this.spawnFood(this)}>spawn food</Button>
                 <Button variant="outline-secondary" onClick={(e) => this.updateAvatar1(this)}>updateAvatar 1</Button>
                 <Button variant="outline-secondary" onClick={(e) => this.updateAvatar2(this)}>updateAvatar 2</Button>
                 <InputGroup className="mb-3" onChange={(e) => this.updateInput(this, e)}>

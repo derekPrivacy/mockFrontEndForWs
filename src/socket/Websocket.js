@@ -26,7 +26,9 @@ export function Websocket(that, msgType, roomNumber) {
             msg["positionY"] = that.state.positionY
             msg["bodyLength"] = that.state.bodyLength
             msg["direction"] = that.state.direction
-
+        } else if (msgType == "spawnFood") {
+            msg["foodPositionX"] = that.state.foodPositionX
+            msg["foodPositionY"] = that.state.foodPositionY
         }
 
         console.log("in this case " + JSON.stringify(msg))
