@@ -16,7 +16,7 @@ export function Websocket(that, msgType, roomNumber) {
         var msg = { "type": msgType, "RoomID": parseInt(roomNumber) }
 
         if (msgType == "hello") {
-            msg["data"] = "";
+
         }
         else if (msgType == "addPlayer") {
             msg["data"] = that.state.input;

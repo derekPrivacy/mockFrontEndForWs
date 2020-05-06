@@ -79,6 +79,10 @@ class Room extends Component {
         Websocket(that, "updateAvatar", this.props.match.params.id)
     }
 
+    sayHello(that) {
+        Websocket(that, "hello", this.props.match.params.id)
+    }
+
     spawnFood(that) {
         that.setState({
             foodPositionX: 999,
@@ -94,6 +98,7 @@ class Room extends Component {
                 <Button variant="outline-secondary" onClick={(e) => this.spawnFood(this)}>spawn food</Button>
                 <Button variant="outline-secondary" onClick={(e) => this.updateAvatar1(this)}>updateAvatar 1</Button>
                 <Button variant="outline-secondary" onClick={(e) => this.updateAvatar2(this)}>updateAvatar 2</Button>
+                <Button variant="outline-secondary" onClick={(e) => this.sayHello(this)}>say hello</Button>
                 <InputGroup className="mb-3" onChange={(e) => this.updateInput(this, e)}>
                     <FormControl
                         placeholder="add player"
