@@ -1,9 +1,9 @@
-export function Websocket(that, msgType, roomNumber) {
+export function WebsocketAdd(that, msgType, roomNumber) {
 
     console.log("ws passed room number " + roomNumber)
     console.log("type message " + msgType)
 
-    var socket = new WebSocket('ws://localhost:8081/api/socket');
+    var socket = new WebSocket('ws://localhost:8081/api/socketAdd');
 
     // on websocket error
     socket.addEventListener('error', function (event) {
@@ -14,23 +14,7 @@ export function Websocket(that, msgType, roomNumber) {
     // Connection opened
     socket.addEventListener('open', function (event) {
         console.log("connected")
-        var msg = { "type": msgType, "RoomID": parseInt(roomNumber) }
-
-        if (msgType == "hello") {
-            msg["data"] = "hello"
-        }
-        else if (msgType == "addPlayer") {
-            msg["data"] = that.state.input;
-        } else if (msgType == "updateAvatar") {
-            msg["avatarId"] = that.state.avatarId
-            msg["positionX"] = that.state.positionX
-            msg["positionY"] = that.state.positionY
-            msg["bodyLength"] = that.state.bodyLength
-            msg["direction"] = that.state.direction
-        } else if (msgType == "spawnFood") {
-            msg["foodPositionX"] = that.state.foodPositionX
-            msg["foodPositionY"] = that.state.foodPositionY
-        }
+        var msg = { "type": msgType, "RoomID": parseInt(roomNumber), "data": that.state.input }
 
         console.log("in this case " + JSON.stringify(msg))
 

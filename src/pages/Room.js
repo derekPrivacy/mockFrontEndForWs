@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Websocket } from '../socket/Websocket'
 
+import { WebsocketAdd } from '../socket/WebsocketAddPlayer'
+
 
 
 const studentList = ["student", "student"];
@@ -55,7 +57,7 @@ class Room extends Component {
 
     handleAddUser(that, input) {
         console.log("ok" + that.state.input)
-        Websocket(that, "addPlayer", this.props.match.params.id)
+        WebsocketAdd(that, "addPlayer", this.props.match.params.id)
     }
 
     updateAvatar1(that) {
