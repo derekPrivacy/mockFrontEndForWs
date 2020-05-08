@@ -41,7 +41,7 @@ class Room extends Component {
 
     componentDidMount() {
         console.log("get para number " + this.props.match.params.id)
-        Websocket(this, "hello", this.props.match.params.id)
+        WebsocketAdd(this, "hello", this.props.match.params.id)
         this.setState({
             roomId: this.props.match.params.id
         })
@@ -82,7 +82,7 @@ class Room extends Component {
     }
 
     sayHello(that) {
-        Websocket(that, "hello", this.props.match.params.id)
+        WebsocketAdd(that, "hello", this.props.match.params.id)
     }
 
     spawnFood(that) {
